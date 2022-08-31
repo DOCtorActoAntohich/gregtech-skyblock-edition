@@ -3,7 +3,10 @@
 """build client & server bundles"""
 
 # if there is a problem with building, please let htmlcsjs know
+from genericpath import isdir
+from importlib.resources import path
 import os
+import pathlib
 import sys
 import shutil
 import subprocess
@@ -11,6 +14,8 @@ import requests
 import json
 import hashlib
 import argparse
+
+from manifest_models import Manifest
 
 
 def parse_args():
@@ -20,74 +25,23 @@ def parse_args():
     parser.add_argument("--retries", type=int, default=3, help="download attempts before failure")
     parser.add_argument("--clean", action="store_true", help="clean output dirs")
     parser.add_argument("--dev_build", action="store_true", help="makes a folder with all the files symlinked for development. probally only works on linux")
-    parser.add_argument("--try_server", action="store_true", help="trys to use old way of getting server jars")
+    parser.add_argument("--try_server", action="store_true", help="tries to use old way of getting server jars")
     return parser.parse_args()
 
 
-args = parse_args()
-
-
 modlist = []
-basePath = os.path.normpath(os.path.realpath(__file__)[:-7] + "..")
-copyDirs = ["/scripts", "/resources", "/config", "/mods", "/structures"]
-serverCopyDirs = ["/scripts", "/config", "/mods", "/structures"]
 modURLlist = []
 modClientOnly = []
 
-if args.clean:
-    shutil.rmtree(basePath + "/buildOut/client/overrides", ignore_errors=True)
-    shutil.rmtree(basePath + "/buildOut/server", ignore_errors=True)
-    shutil.rmtree(basePath + "/mods", ignore_errors=True)
-    sys.exit(0)
 
-sha = ""
-if args.sha:
-    try:
-        p = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, cwd=basePath)
-        sha = p.stdout.strip().decode("utf-8")
-    except Exception as e:
-        print("could not determine git sha, skipping")
-
-with open(basePath + "/manifest.json") as file:
-    manifest = json.load(file)
-
-cachepath = os.path.join(basePath, "buildOut", "modcache")
-
-
-def mkdirs(path):
-    try:
-        os.makedirs(path)
-    except Exception as e:
-        print("%s exists, skipping" % (path))
-
-
-mkdirs(basePath + "/buildOut/client/overrides")
-mkdirs(basePath + "/buildOut/server")
-mkdirs(basePath + "/mods")
-mkdirs(cachepath)  # /buildOut/modcach
-
-# if we downloaded mods before, add them to the cache
-prev = basePath + "/buildOut/server/mods"
-cached = 0
-if os.path.isdir(prev):
-    for f in os.listdir(prev):
-        # don't waste time copying mods to the cache that are already there
-        if os.path.exists(os.path.join(cachepath, f)):
-            continue
-        cached += 1
-        shutil.copy2(os.path.join(prev, f), os.path.join(cachepath, f))
-
-if cached > 0:
-    print("cached %d mod downloads in %s" % (cached, cachepath))
-
-#for mod in manifest["externalDeps"]:
+# for mod in manifest["externalDeps"]:
 #    with open(basePath + "/mods/" + mod["url"].split("/")[-1], "w+b") as jar:
 #        for i in range(args.retries + 1):
 #            if i == args.retries:
 #                raise Exception("Download failed")
-#
+
 #            r = requests.get(mod["url"])
-#
+
 #            hash = hashlib.sha256(jar.read()).hexdigest()
 #            if str(hash) == mod["hash"]:
 #                jar.write(r.content)
@@ -99,21 +53,8 @@ if cached > 0:
 #                print("use", str(hash), "this if it is consistant across runs")
 #                pass
 
-for dir in copyDirs:
-    try:
-        shutil.copytree(basePath + dir, basePath + "/buildOut/client/overrides" + dir)
-    except Exception as e:
-        print("Directory exists, skipping")
-print("directories copied to buildOut/client")
 
-archive = "buildOut/client"
-if sha:
-    archive = "%s-%s" % (archive, sha)
-
-shutil.copy(basePath + "/manifest.json", basePath + "/buildOut/client/manifest.json")
-shutil.make_archive(archive, "zip", basePath + "/buildOut/client")
-print('client zip "%s.zip"  made' % (archive))
-
+'''
 if args.try_server:
     for mod in manifest["files"]:
         url = "https://cursemeta.dries007.net/" + str(mod["projectID"]) + "/" + str(mod["fileID"]) + ".json"
@@ -245,7 +186,134 @@ if (args.dev_build):
     instanceFolder = input("What is your MultiMC instance folder:")
     instanceName = input("What do you want to call the instance:")
     os.symlink(basePath + "/buildOut/mmc/", instanceFolder + "/" + instanceName)
-    print("you might need to add an instance.cfg for mmc to reconise it")
+    print("you might need to add an instance.cfg for mmc to reconise it")'''
 
 
-print("done")
+
+ManifestName = "manifest.json"
+
+class PathTo:
+    BuildDirectory = pathlib.Path(__file__).parent
+    Repository = BuildDirectory.parent
+    BuildOut = Repository / "buildOut"
+    ClientOut = BuildOut / "client"
+    ClientArchiveNoFormat = ClientOut
+    ClientOverrides = ClientOut / "overrides"
+    ServerOut = BuildOut / "server"
+    ModCache = BuildOut / "modcache"
+    Mods = Repository / "mods"
+    Manifest = Repository / ManifestName
+
+
+
+def client_copy_directories() -> list[pathlib.Path]:
+    directories = ["scripts", "resources", "config", "mods", "structures"]
+    return [PathTo.Repository / subdir for subdir in directories]
+
+
+def server_copy_directories() -> list[pathlib.Path]:
+    directories = ["scripts", "config", "mods", "structures"]
+    return [PathTo.Repository / subdir for subdir in directories]
+
+
+def clean_output() -> None:
+    shutil.rmtree(PathTo.ClientOverrides, ignore_errors=True)
+    shutil.rmtree(PathTo.ServerOut, ignore_errors=True)
+    shutil.rmtree(PathTo.Mods, ignore_errors=True)
+    print("Output cleaned")
+
+
+def extract_git_sha() -> str:
+    try:
+        p = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True,
+            cwd=PathTo.Repository
+        )
+        return p.stdout.strip().decode("utf-8")
+    except Exception as e:
+        print("Couldn't determine git SHA, skipping")
+        return ""
+
+
+def create_if_not_exists(path: pathlib.Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def create_directories() -> None:
+    directories = [
+        PathTo.ClientOverrides,
+        PathTo.ServerOut,
+        PathTo.Mods,
+        PathTo.ModCache
+    ]
+    for directory in directories:
+        create_if_not_exists(directory)
+
+
+def cache_server_mods():
+    server_mods = PathTo.ServerOut / "mods"
+    n_cached_mods = 0
+    if not server_mods.exists() or not server_mods.is_dir():
+        print(f"Nothing to cache from {server_mods.relative_to(PathTo.Repository)}")
+        return
+
+    for mod in server_mods.iterdir():
+        cached_mod = PathTo.ModCache / mod.name
+        if cached_mod.exists():
+            continue
+        n_cached_mods += 1
+        shutil.copy2(mod, cached_mod)
+
+    if n_cached_mods > 0:
+        print(f"cached {n_cached_mods} mod downloads in {PathTo.ModCache}")
+
+
+def copy_client_files() -> None:
+    for directory in client_copy_directories():
+        try:
+            shutil.copytree(directory, PathTo.ClientOverrides / directory.name)
+        except FileNotFoundError:
+            print(f"'{directory.name}' was not found, skipping")
+        except FileExistsError:
+            print(f"'{directory.name}' is already in client out directory, skipping")
+    print(f"Directories copied to {PathTo.ClientOut.relative_to(PathTo.Repository)}")
+
+
+def client_archive_path_no_format(sha: str) -> pathlib.Path:
+    path = PathTo.ClientArchiveNoFormat
+    if not sha:
+        return path
+
+    name = f"{path.name}-{sha}"
+    return path.parent / name
+
+
+def create_client_archive(target_archive_path: pathlib.Path) -> None:
+    shutil.copy(PathTo.Manifest, PathTo.ClientOut / ManifestName)
+    shutil.make_archive(target_archive_path, "zip", PathTo.ClientOut)
+    print(f"Client zip '{target_archive_path.name}.zip' made")
+
+
+def main():
+    args = parse_args()
+    if args.clean:
+        clean_output()
+        return
+
+    sha = ""
+    if args.sha:
+        sha = extract_git_sha()
+
+    manifest = Manifest.parse_file(PathTo.Manifest)
+
+    create_directories()
+    cache_server_mods()
+
+    copy_client_files()
+
+    create_client_archive(client_archive_path_no_format(sha))
+
+
+if __name__ == "__main__":
+    main()
