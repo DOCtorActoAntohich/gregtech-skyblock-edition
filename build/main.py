@@ -8,21 +8,8 @@ import subprocess
 import argparse
 
 from build.manifest_models import Manifest
-
-
-ManifestName = "manifest.json"
-
-class PathTo:
-    BuildDirectory = pathlib.Path(__file__).parent
-    Repository = BuildDirectory.parent
-    BuildOut = Repository / "buildOut"
-    ClientOut = BuildOut / "client"
-    ClientArchiveNoFormat = ClientOut
-    ClientOverrides = ClientOut / "overrides"
-    ServerOut = BuildOut / "server"
-    ModCache = BuildOut / "modcache"
-    Mods = Repository / "mods"
-    Manifest = Repository / ManifestName
+from build.paths import ManifestName, PathTo
+from build.zenscript import postprocess_scripts
 
 
 def parse_args():
@@ -101,12 +88,17 @@ def cache_server_mods():
 
 def copy_client_files() -> None:
     for directory in client_copy_directories():
+        target = PathTo.ClientOverrides / directory.name
+        if target.exists():
+            shutil.rmtree(target)
+
         try:
-            shutil.copytree(directory, PathTo.ClientOverrides / directory.name)
+            shutil.copytree(directory, target)
         except FileNotFoundError:
             print(f"'{directory.name}' was not found, skipping")
-        except FileExistsError:
-            print(f"'{directory.name}' is already in client out directory, skipping")
+
+    postprocess_scripts(PathTo.ClientOverrides / "scripts")
+
     print(f"Directories copied to {PathTo.ClientOut.relative_to(PathTo.Repository)}")
 
 
