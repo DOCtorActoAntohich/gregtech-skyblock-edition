@@ -9,7 +9,7 @@ Inspired by [GregBlock](https://www.curseforge.com/minecraft/modpacks/gregblock)
 You have to have Python 3.10 or newer installed.
 
 1. Run `pip3 install -r build/requirements.txt` to install required libraries.
-2. Run `python -m build.main` in command line.
+2. Run `python -m build` in command line.
 
 #### Note: updating external mods
 
