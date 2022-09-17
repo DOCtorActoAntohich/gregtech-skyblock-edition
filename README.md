@@ -10,12 +10,12 @@ this pack is intended to fix GregBlock's issues and avoid some of Gregicality's 
 
 You have to have Python 3.10 or newer installed.
 
-1. Run `pip3 install -r build/requirements.txt` to install required libraries.
+1. Run `pip install -r build/requirements.txt` to install required libraries.
 2. Run `python -m build` in command line.
 
 #### Note: updating external mods
 
-To update external mods, you need to download the updated version and run `python build/getHash.py <mod_location>`
+To update external mods, you need to download the updated version and run `python -m build.get_hash <mod_location>`
 and copy the output to the `hash` field for the mod in `mainifest.json`
 
 ## Credits
