@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import pathlib
 
-from pydantic import BaseModel, Field, parse_obj_as, parse_raw_as
+from pydantic import BaseModel, Field, parse_obj_as
 
 from build.paths import PathTo
 
@@ -79,18 +79,3 @@ def generate_manifest() -> Manifest:
     manifest.files.extend(cf_mods)
 
     return manifest
-
-'''
-with PathTo.ModsJson.open() as file:
-    mods: dict[str, dict] = json.load(file)
-
-with (PathTo.Repository / "manifest.json").open() as file:
-    good_manifest = Manifest.parse_obj(json.load(file))
-
-for name, data in mods.items():
-    project_id = data["projectID"]
-    file_id = data["fileID"]
-    for mod in good_manifest.files:
-        if mod.project_id == project_id and mod.file_id != file_id:
-            print(f"bad: {file_id}", "\t", f"good: {mod.file_id}", "\t\t\t", name)
-'''
