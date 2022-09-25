@@ -1,0 +1,314 @@
+{
+    "codechicken_lib" : {
+        "projectID" : 242818,
+        "fileID" : 2779848
+    },
+    "cb_multipart" : {
+        "projectID" : 258426,
+        "fileID" : 2755790
+    },
+    "gregtech_ceu" : {
+        "projectID" : 557242,
+        "fileID" : 3949406
+    },
+    "gregicality_multiblocks" : {
+        "projectID" : 564858,
+        "fileID" : 3941516
+    },
+    "bdlib" : {
+        "projectID" : 70496,
+        "fileID": 2518031
+    },
+    "ae2_unofficial" : {
+        "projectID" : 570458,
+        "fileID": 3990479
+    },
+    "ae2_me_capability_adapter" : {
+        "projectID" : 281657,
+        "fileID": 3474317
+    },
+    "ae2_volumetric_flask" : {
+        "projectID" : 349942,
+        "fileID": 3008019
+    },
+    "commons0815" : {
+        "projectID" : 346326,
+        "fileID": 3248796
+    },
+    "opencomputers" : {
+        "projectID" : 223008,
+        "fileID": 3966135
+    },
+    "building_gadgets" : {
+        "projectID" : 298187,
+        "fileID": 3005950
+    },
+    "better_builders_wands" : {
+        "projectID" : 238403,
+        "fileID": 2691084
+    },
+    "ore_excavation" : {
+        "projectID" : 250898,
+        "fileID": 2897369
+    },
+    "architecture_craft" : {
+        "projectID" : 277631,
+        "fileID": 2750633
+    },
+    "supermartijn642_core_lib" : {
+        "projectID" : 454372,
+        "fileID": 3863122
+    },
+    "supermartijn642_config_lib" : {
+        "projectID" : 438332,
+        "fileID": 3862959
+    },
+    "moving_elevators" : {
+        "projectID" : 373051,
+        "fileID": 3878275
+    },
+    "twerk" : {
+        "projectID" : 251301,
+        "fileID": 2659489
+    },
+    "shadowfacts_forgelin" : {
+        "projectID" : 248453,
+        "fileID": 2785465
+    },
+    "ex_nihilo_creatio" : {
+        "projectID" : 274456,
+        "fileID": 2817545
+    },
+    "ex_compressum" : {
+        "projectID" : 241967,
+        "fileID": 2966941
+    },
+    "forgiving_void" : {
+        "projectID" : 271009,
+        "fileID": 2863246
+    },
+    "void_island_control" : {
+        "projectID" : 257655,
+        "fileID": 2666967
+    },
+    "creative_core_lib" : {
+        "projectID" : 257814,
+        "fileID": 3626833
+    },
+    "little_tiles" : {
+        "projectID" : 257818,
+        "fileID": 4000788
+    },
+    "xtones" : {
+        "projectID" : 257573,
+        "fileID": 3248033
+    },
+    "better_questing_unofficial" : {
+        "projectID" : 629629,
+        "fileID": 3961617
+    },
+    "compact_machines" : {
+        "projectID" : 224218,
+        "fileID": 2707509
+    },
+    "resource_loader" : {
+        "projectID" : 226447,
+        "fileID": 2477566
+    },
+    "mtlib_for_ct" : {
+        "projectID" : 253211,
+        "fileID": 3308160
+    },
+    "craft_tweaker" : {
+        "projectID" : 239197,
+        "fileID": 3642364
+    },
+    "base_for_ct" : {
+        "projectID" : 246996,
+        "fileID": 3440963
+    },
+    "content_tweaker" : {
+        "projectID" : 237065,
+        "fileID": 3331364
+    },
+    "multiblock_tweaker" : {
+        "projectID" : 386188,
+        "fileID": 3945739
+    },
+    "mod_tweaker" : {
+        "projectID" : 220954,
+        "fileID": 3488553
+    },
+    "journey_map" : {
+        "projectID" : 32274,
+        "fileID": 2916002
+    },
+    "oauth" : {
+        "projectID" : 513857,
+        "fileID": 3694373
+    },
+    "controls_menu" : {
+        "projectID" : 250398,
+        "fileID": 3025548
+    },
+    "inventory_tweaks" : {
+        "projectID" : 223094,
+        "fileID": 2482481
+    },
+    "mouse_tweaks" : {
+        "projectID" : 60089,
+        "fileID": 3359843
+    },
+    "clumps" : {
+        "projectID" : 256717,
+        "fileID": 2666198
+    },
+    "fast_leaf_decay" : {
+        "projectID" : 230976,
+        "fileID": 2463272
+    },
+    "morpheus_to_sleeb" : {
+        "projectID" : 69118,
+        "fileID": 2664449
+    },
+    "toast_control" : {
+        "projectID" : 271740,
+        "fileID": 2707353
+    },
+    "better_advancements" : {
+        "projectID" : 272515,
+        "fileID": 2685984
+    },
+    "fast_workbench" : {
+        "projectID" : 288885,
+        "fileID": 2838777
+    },
+    "fast_furnace" : {
+        "projectID" : 299540,
+        "fileID": 2706111
+    },
+    "baubles" : {
+        "projectID" : 227083,
+        "fileID": 2518667
+    },
+    "wopper" : {
+        "projectID" : 269377,
+        "fileID": 2456802
+    },
+    "item_filters" : {
+        "projectID" : 309674,
+        "fileID": 3003364
+    },
+    "ceramics" : {
+        "projectID" : 250617,
+        "fileID": 3158763
+    },
+    "apple_skin" : {
+        "projectID" : 248787,
+        "fileID": 2987247
+    },
+    "nei_but_hei" : {
+        "projectID" : 557549,
+        "fileID": 3957880
+    },
+    "more_overlays_nei" : {
+        "projectID" : 243478,
+        "fileID": 2745657
+    },
+    "openmods_lib" : {
+        "projectID" : 228815,
+        "fileID": 2699055
+    },
+    "openblocks" : {
+        "projectID" : 228816,
+        "fileID": 2699056
+    },
+    "mantle_lib" : {
+        "projectID" : 74924,
+        "fileID": 2713386
+    },
+    "chameleon_lib" : {
+        "projectID" : 230497,
+        "fileID": 2450900
+    },
+    "storage_drawers" : {
+        "projectID" : 223852,
+        "fileID": 2952606
+    },
+    "connected_textures_lib" : {
+        "projectID" : 267602,
+        "fileID": 2915363
+    },
+    "chisel" : {
+        "projectID" : 235279,
+        "fileID": 2915375
+    },
+    "bookshelf" : {
+        "projectID" : 228525,
+        "fileID": 2836960
+    },
+    "dark_utils" : {
+        "projectID" : 242195,
+        "fileID": 2813586
+    },
+    "wireless_redstone_cbe" : {
+        "projectID" : 260824,
+        "fileID": 2755798
+    },
+    "redstone_paste" : {
+        "projectID" : 67508,
+        "fileID": 2477676
+    },
+    "ftb_lib" : {
+        "projectID" : 237167,
+        "fileID": 2985811
+    },
+    "ftb_utils" : {
+        "projectID" : 237102,
+        "fileID": 3157548
+    },
+    "ftb_backups" : {
+        "projectID" : 314904,
+        "fileID": 2819669
+    },
+    "foam_fix" : {
+        "projectID" : 278494,
+        "fileID": 3973967
+    },
+    "placebo_lib" : {
+        "projectID" : 283644,
+        "fileID": 2694382
+    },
+    "patchouli" : {
+        "projectID" : 306770,
+        "fileID": 3162874
+    },
+    "mcjty_lib" : {
+        "projectID" : 233105,
+        "fileID": 2745846
+    },
+    "the_one_probe" : {
+        "projectID" : 245211,
+        "fileID": 2667280
+    },
+    "bad_wither_no_cookie" : {
+        "projectID" : 261251,
+        "fileID": 3045651
+    },
+    "random_patches" : {
+        "projectID" : 285612,
+        "fileID": 3133651
+    },
+    "mixin_booster" : {
+        "projectID" : 419286,
+        "fileID": 3886235
+    },
+    "loliasm" : {
+        "projectID" : 460609,
+        "fileID": 3898244
+    },
+    "tips" : {
+        "projectID" : 306549,
+        "fileID": 2906537
+    }
+}
