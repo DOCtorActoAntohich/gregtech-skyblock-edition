@@ -1,3 +1,19 @@
+# VS Code.
+.vscode
+
+# JetBrains.
+.idea
+
+# Python specific.
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cache for modules (just in case).
+.mypy_cache
+.pytest_cache
+
+# Minceraft folder.
 .ReAuth.cfg
 crafttweaker.log
 knownkeys.txt
@@ -28,3 +44,6 @@ config/splash.properties
 config/InvTweaks.cfg
 .curseclient
 config/enderio/
+
+# Build results.
+buildOut
